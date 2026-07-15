@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전극 모듈화 시뮬레이터</title>
+    <style>
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        p.subtitle {
+            color: #7f8c8d;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+        .container {
+            display: flex;
+            gap: 40px;
+            max-width: 1200px;
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .panel {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            flex: 1;
+            min-width: 300px;
+        }
+        h2 {
+            font-size: 1.2rem;
+            margin-top: 0;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+            color: #34495e;
+        }
+        /* 전극 선택 카드 */
+        .electrode-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        .card {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .card.active {
+            border-color: #2c3e50;
+            box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.2);
+        }
+        .card-title {
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+        .color-badge {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.2);
+        }
+        .card-desc {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        /* 테트리스 모양 선택 */
+        .shape-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .shape-btn {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            background: white;
+            display: grid;
+            gap: 2px;
+        }
+        .shape-btn.active {
+            border-color: #3498db;
+            background: #ebf5fb;
+        }
+        .mini-cell {
+            width: 12px;
+            height: 12px;
+            background: #95a5a6;
+            border-radius: 2px;
+        }
+        .mini-cell.empty { background: transparent; }
+
+        /* 8x8 그리드 */
+        .grid-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(8, 40px);
+            grid-template-rows: repeat(8, 40px);
+            gap: 1px;
+            background: #bdc3c7;
+            border: 2px solid #7f8c8d;
+            border-radius: 4px;
+            padding: 2px;
+        }
+        .cell {
+            width: 40px;
+            height: 40px;
+            background: white;
+            cursor: pointer;
+            transition: background 0.1s;
+        }
+        .cell:hover {
+            background: #ecf0f1;
+        }
+
+        /* 컨트롤 및 결과 */
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
+        button {
+            padding: 12px
